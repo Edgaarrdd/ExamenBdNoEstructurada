@@ -1,0 +1,190 @@
+db.movies.insertMany([
+  {
+    "_id": "68718f277344c646ad045ac8",
+    "title": "El Señor de los Anillos: La Comunidad del Anillo",
+    "releaseYear": 2001,
+    "genre": [
+      "Fantasía",
+      "Aventura",
+      "Acción"
+    ],
+    "director": {
+      "firstName": "Peter",
+      "lastName": "Jackson",
+      "birthYear": 1961
+    },
+    "cast": [
+      {
+        "actorName": "Elijah Wood",
+        "characterName": "Frodo Bolsón",
+        "roleType": "Principal"
+      },
+      {
+        "actorName": "Ian McKellen",
+        "characterName": "Gandalf",
+        "roleType": "Principal"
+      }
+    ],
+    "synopsis": "Un hobbit hereda un anillo mágico y emprende una peligrosa misión para destruirlo...",
+    "rating": {
+      "average": 8.8,
+      "reviewsCount": 250000
+    },
+    "production": {
+      "studio": "New Line Cinema",
+      "country": "Nueva Zelanda",
+      "budgetUSD": 93000000
+    },
+    "keywords": [
+      "anillo",
+      "hobbit",
+      "orcos"
+    ],
+    "availableOn": [
+      "HBO Max"
+    ],
+    "isAwardWinner": true,
+    "durationMinutes": 178
+  },
+  {
+    "_id": "68718f277344c646ad045ac9",
+    "title": "Origen",
+    "releaseYear": 2010,
+    "genre": [
+      "Ciencia Ficción",
+      "Thriller",
+      "Acción"
+    ],
+    "director": {
+      "firstName": "Christopher",
+      "lastName": "Nolan",
+      "birthYear": 1970
+    },
+    "cast": [
+      {
+        "actorName": "Leonardo DiCaprio",
+        "characterName": "Dom Cobb",
+        "roleType": "Principal"
+      },
+      {
+        "actorName": "Joseph Gordon-Levitt",
+        "characterName": "Arthur",
+        "roleType": "Principal"
+      }
+    ],
+    "synopsis": "Un ladrón que roba información corporativa a través de la tecnología de compartir sueños...",
+    "rating": {
+      "average": 8.8,
+      "reviewsCount": 300000
+    },
+    "production": {
+      "studio": "Warner Bros.",
+      "country": "Estados Unidos",
+      "budgetUSD": 160000000
+    },
+    "keywords": [
+      "sueños",
+      "mente",
+      "realidad"
+    ],
+    "availableOn": [
+      "Netflix",
+      "HBO Max"
+    ],
+    "isAwardWinner": true,
+    "durationMinutes": 148
+  },
+  {
+    "_id": "68718f277344c646ad045aca",
+    "title": "Pulp Fiction",
+    "releaseYear": 1994,
+    "genre": [
+      "Crimen",
+      "Drama"
+    ],
+    "director": {
+      "firstName": "Quentin",
+      "lastName": "Tarantino",
+      "birthYear": 1963
+    },
+    "cast": [
+      {
+        "actorName": "John Travolta",
+        "characterName": "Vincent Vega",
+        "roleType": "Principal"
+      },
+      {
+        "actorName": "Uma Thurman",
+        "characterName": "Mia Wallace",
+        "roleType": "Principal"
+      }
+    ],
+    "synopsis": "Las vidas de dos sicarios, un boxeador, la esposa de un gánster y un par de ladrones se entrelazan...",
+    "rating": {
+      "average": 8.9,
+      "reviewsCount": 400000
+    },
+    "production": {
+      "studio": "Miramax Films",
+      "country": "Estados Unidos",
+      "budgetUSD": 8000000
+    },
+    "keywords": [
+      "crimen",
+      "violencia",
+      "diálogos"
+    ],
+    "availableOn": [
+      "HBO Max"
+    ],
+    "isAwardWinner": true,
+    "durationMinutes": 154
+  },
+  {
+    "_id": "68718f277344c646ad045acb",
+    "title": "El Gran Hotel Budapest",
+    "releaseYear": 2014,
+    "genre": [
+      "Comedia",
+      "Aventura",
+      "Drama"
+    ],
+    "director": {
+      "firstName": "Wes",
+      "lastName": "Anderson",
+      "birthYear": 1969
+    },
+    "cast": [
+      {
+        "actorName": "Ralph Fiennes",
+        "characterName": "Monsieur Gustave H.",
+        "roleType": "Principal"
+      },
+      {
+        "actorName": "Tony Revolori",
+        "characterName": "Zero Moustafa",
+        "roleType": "Principal"
+      }
+    ],
+    "synopsis": "Las aventuras de un conserje legendario y su joven protegido en un famoso hotel europeo...",
+    "rating": {
+      "average": 8.1,
+      "reviewsCount": 180000
+    },
+    "production": {
+      "studio": "Fox Searchlight Pictures",
+      "country": "Estados Unidos",
+      "budgetUSD": 25000000
+    },
+    "keywords": [
+      "comedia",
+      "misterio",
+      "estilizado"
+    ],
+    "availableOn": [
+      "Star+"
+    ],
+    "isAwardWinner": true,
+    "durationMinutes": 99
+  }
+])
