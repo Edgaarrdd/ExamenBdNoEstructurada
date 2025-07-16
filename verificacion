@@ -1,0 +1,32 @@
+{
+  "_id": "ObjectId", // Auto-generado por MongoDB, no necesitamos validarlo en Python
+  "title": "String", // Título de la película (obligatorio, string)
+  "releaseYear": "Number", // Año de lanzamiento (obligatorio, número, rango)
+  "genre": [ "String" ], // Lista de géneros (obligatorio, lista de strings)
+  "director": { // Subdocumento (obligatorio)
+    "firstName": "String", // Nombre del director (obligatorio, string)
+    "lastName": "String", // Apellido del director (obligatorio, string)
+    "birthYear": "Number" // Año de nacimiento del director (obligatorio, número, rango)
+  },
+  "cast": [ // Lista de subdocumentos (obligatorio, lista de objetos)
+    {
+      "actorName": "String", // Nombre del actor (obligatorio, string)
+      "characterName": "String", // Nombre del personaje (obligatorio, string)
+      "roleType": "String" // Tipo de rol (obligatorio, string, valores permitidos)
+    }
+  ],
+  "synopsis": "String", // Sinopsis de la película (obligatorio, string)
+  "rating": { // Subdocumento (obligatorio)
+    "average": "Number", // Puntuación promedio (obligatorio, número, rango)
+    "reviewsCount": "Number" // Cantidad de reseñas (obligatorio, número, mínimo 0)
+  },
+  "production": { // Subdocumento (obligatorio)
+    "studio": "String", // Estudio de producción (obligatorio, string)
+    "country": "String", // País de producción (obligatorio, string)
+    "budgetUSD": "Number" // Presupuesto en USD (obligatorio, número, mínimo 0)
+  },
+  "keywords": [ "String" ], // Lista de palabras clave (opcional, lista de strings)
+  "availableOn": [ "String" ], // Lista de plataformas donde está disponible (opcional, lista de strings)
+  "isAwardWinner": "Boolean", // Si ha ganado premios (obligatorio, booleano)
+  "durationMinutes": "Number" // Duración en minutos (obligatorio, número, mínimo 1)
+}
