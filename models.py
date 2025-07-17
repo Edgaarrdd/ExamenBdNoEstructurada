@@ -61,13 +61,13 @@ def input_movie_data():
 
     # Keywords y plataformas
     keywords = input("Palabras clave (separadas por coma): ").split(",")
-    keywords = [k.strip() for k in keywords if k.strip()]
+    keywords = [k.strip() for k in keywords if k.strip()] # lista de palabras clave 
     available_on = input("Disponibilidad (plataformas separadas por coma): ").split(",")
     available_on = [a.strip() for a in available_on if a.strip()]
 
     is_award_winner = input("¿Ganadora de premios? (s/n): ").lower() == 's'
 
-    movie = {
+    movie = { # diccionario que representa la película
         "title": title,
         "releaseYear": release_year,
         "genre": genre,

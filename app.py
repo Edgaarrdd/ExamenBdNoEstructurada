@@ -4,7 +4,7 @@ from db import connect_db
 
 
 def menu():
-    print("\n--- Aplicación CRUD de Películas ---")
+    print("\n--- Index Movies ---")
     print("1. Agregar película")
     print("2. Ver películas")
     print("3. Actualizar película")
@@ -14,20 +14,19 @@ def menu():
 
 def main():
     db = connect_db()
-    collection = db["movies"]
-
+    collection = db["movies"] # llamada a la colección de películas
     while True:
         menu()
         opcion = input("Seleccione una opción: ")
 
         if opcion == "1":
-            create_movie(collection)
+            create_movie(collection) #llamada a la función para crear una película
         elif opcion == "2":
-            read_movies(collection)
+            read_movies(collection) # llamada a la función para leer las películas
         elif opcion == "3":
-            update_movie(collection)
+            update_movie(collection) # llamada a la función para actualizar una película
         elif opcion == "4":
-            delete_movie(collection)
+            delete_movie(collection) # llamada a la función para eliminar una película
         elif opcion == "5":
             print("Saliendo de la aplicación.")
             break

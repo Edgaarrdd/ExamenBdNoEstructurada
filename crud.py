@@ -37,26 +37,47 @@ def update_movie(collection):
         print("Película no encontrada.")
         return
 
-    print("Película encontrada:")
-    from pprint import pprint
-    pprint(movie)
+    print("\nPelícula encontrada: \n")
+    print(f"Título: {movie['title']}")
+    print(f"Año: {movie['releaseYear']}")
+    print(f"Duración: {movie['durationMinutes']} minutos")
+    print(f"Nota promedio: {movie['rating']['average']}")
+    print(f"Reseñas: {movie['rating']['reviewsCount']}")
+    print(f"Sinopsis: {movie['synopsis']}")
 
-    campo = input("¿Qué campo desea actualizar? (ej: synopsis, durationMinutes, rating.average): ")
+    print("\n¿Qué campo desea actualizar?")
+    print("1. Título")
+    print("2. Sinopsis")
+    print("3. Año de estreno")
+    print("4. Duración (minutos)")
+    print("5. Nota promedio")
+    print("6. Cantidad de reseñas")
+    opcion = input("Seleccione una opción (1-6): ")
+
+    campo_map = {
+        "1": ("title", str),
+        "2": ("synopsis", str),
+        "3": ("releaseYear", int),
+        "4": ("durationMinutes", int),
+        "5": ("rating.average", int),
+        "6": ("rating.reviewsCount", int)
+    }
+
+    if opcion not in campo_map:
+        print("Opción inválida.")
+        return
+
+    campo, tipo = campo_map[opcion]
     nuevo_valor = input("Nuevo valor: ")
 
-    # Convertir a int si corresponde
-    if campo in ["releaseYear", "durationMinutes", "rating.average", "rating.reviewsCount"]:
-        try:
-            nuevo_valor = int(nuevo_valor)
-        except:
-            print("Valor inválido. Debe ser un número entero.")
-            return
+    try:
+        nuevo_valor = tipo(nuevo_valor)
+    except ValueError:
+        print("Tipo de dato incorrecto.")
+        return
 
-    collection.update_one(
-        {"title": title},
-        {"$set": {campo: nuevo_valor}}
-    )
-    print("Película actualizada.")
+    collection.update_one({"_id": movie["_id"]}, {"$set": {campo: nuevo_valor}})
+    print("Película actualizada correctamente.")
 
 
 def delete_movie(collection):
@@ -67,9 +88,15 @@ def delete_movie(collection):
         print("Película no encontrada.")
         return
 
-    from pprint import pprint
-    pprint(movie)
-    confirm = input("¿Está seguro de eliminar esta película? (s/n): ").lower()
+    print("\nPelícula encontrada:")
+    print(f"Título: {movie['title']}")
+    print(f"Año: {movie['releaseYear']}")
+    print(f"Duración: {movie['durationMinutes']} minutos")
+    print(f"Director: {movie['director']['firstName']} {movie['director']['lastName']}")
+    print(f"Nota promedio: {movie['rating']['average']} ({movie['rating']['reviewsCount']} reseñas)")
+    print(f"Disponible en: {', '.join(movie.get('availableOn', []))}")
+
+    confirm = input("\n¿Está seguro de eliminar esta película? (s/n): ").lower()
     if confirm == 's':
         collection.delete_one({"_id": movie["_id"]})
         print("Película eliminada.")
