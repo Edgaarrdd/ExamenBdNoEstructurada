@@ -5,8 +5,8 @@ from bson.objectid import ObjectId
 
 def create_movie(collection):
     movie = input_movie_data()
-    result = collection.insert_one(movie)
-    print(f"\nPelícula insertada con ID: {result.inserted_id}")
+    result = collection.insert_one(movie) #mongo insert_one
+    print(f"\nPelícula insertada con ID: {result.inserted_id}") #mongo insert_one
 
 
 def read_movies(collection):
@@ -23,9 +23,9 @@ def read_movies(collection):
     print("\n{:<50} {:<10} {:<8}".format("Título", "Año", "Rating"))
     print("-" * 70)
     for movie in results:
-        title = movie.get("title", "N/A")
-        year = movie.get("releaseYear", "N/A")
-        rating = movie.get("rating", {}).get("average", "N/A")
+        title = movie.get("title", "N/A") #mongo get title
+        year = movie.get("releaseYear", "N/A") #mongo get releaseYear
+        rating = movie.get("rating", {}).get("average", "N/A") #mongo get rating average
         print("{:<50} {:<10} {:<8}".format(title, year, rating))
 
 
@@ -76,14 +76,14 @@ def update_movie(collection):
         print("Tipo de dato incorrecto.")
         return
 
-    collection.update_one({"_id": movie["_id"]}, {"$set": {campo: nuevo_valor}})
+    collection.update_one({"_id": movie["_id"]}, {"$set": {campo: nuevo_valor}}) #mongo update_one 
     print("Película actualizada correctamente.")
 
 
 def delete_movie(collection):
     print("\n--- Eliminar Película ---")
     title = input("Título de la película a eliminar: ")
-    movie = collection.find_one({"title": title})
+    movie = collection.find_one({"title": title}) #mongo find_one
     if not movie:
         print("Película no encontrada.")
         return
@@ -94,11 +94,11 @@ def delete_movie(collection):
     print(f"Duración: {movie['durationMinutes']} minutos")
     print(f"Director: {movie['director']['firstName']} {movie['director']['lastName']}")
     print(f"Nota promedio: {movie['rating']['average']} ({movie['rating']['reviewsCount']} reseñas)")
-    print(f"Disponible en: {', '.join(movie.get('availableOn', []))}")
+    print(f"Disponible en: {', '.join(movie.get('availableOn', []))}") #mongo get availableOn
 
     confirm = input("\n¿Está seguro de eliminar esta película? (s/n): ").lower()
     if confirm == 's':
-        collection.delete_one({"_id": movie["_id"]})
+        collection.delete_one({"_id": movie["_id"]}) #mongo delete_one
         print("Película eliminada.")
     else:
         print("Operación cancelada.")
