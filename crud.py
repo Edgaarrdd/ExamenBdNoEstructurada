@@ -3,31 +3,31 @@ from models import input_movie_data
 from bson.objectid import ObjectId
 import re # Importa la librería para trabajar con expresiones regulares
 
-# Crea una nueva película solicitando los datos al usuario y guardándola en MongoDB
+# Crear una nueva película solicitando los datos al usuario y guardándola en MongoDB
 
 def create_movie(collection):
     movie = input_movie_data()
     result = collection.insert_one(movie)
     print(f"\nPelícula insertada con ID: {result.inserted_id}")
 
-# Lista las películas con opción de aplicar filtro por título y ver detalles completos
+# Lista de películas con opción de aplicar filtro por título y ver detalles completos
 
 def read_movies(collection):
     print("\n--- Lista de Películas ---")
     filtro = input("¿Desea aplicar un filtro por título? (s/n): ").lower()
     query = {}
 
-    if filtro == 's':
+    if filtro == 's': 
         title_input = input("Ingrese parte del título: ").strip()
         if title_input:
             # Escapar caracteres especiales para una búsqueda segura
-            regex_safe = re.escape(title_input)
-            query = {"title": {"$regex": regex_safe, "$options": "i"}}
+            regex_safe = re.escape(title_input) # Escapa caracteres especiales en la entrada del usuario
+            query = {"title": {"$regex": regex_safe, "$options": "i"}} # "$regex" permite buscar títulos que contengan la cadena ingresada, "$options": "i" hace la búsqueda insensible a mayúsculas y minúsculas
         else:
             print("Entrada vacía, mostrando todas las películas.")
 
     projection = {"title": 1, "releaseYear": 1, "rating.average": 1}
-    results = list(collection.find(query, projection))
+    results = list(collection.find(query, projection)) #metodo find busca documentos en la colección según el filtro y proyección especificados
 
     if not results:
         print("No se encontraron películas.")
@@ -37,9 +37,9 @@ def read_movies(collection):
     print("\n{:<50} {:<10} {:<8}".format("Título", "Año", "Rating"))
     print("-" * 70)
     for idx, movie in enumerate(results, 1):
-        title = movie.get("title", "N/A")
-        year = movie.get("releaseYear", "N/A")
-        rating = movie.get("rating", {}).get("average", "N/A")
+        title = movie.get("title", "N/A") #metodo get obtiene el valor del título, si no existe devuelve "N/A"
+        year = movie.get("releaseYear", "N/A") #metodo get obtiene el año de estreno, si no existe devuelve "N/A"
+        rating = movie.get("rating", {}).get("average", "N/A") #metodo get obtiene la calificación promedio, si no existe devuelve "N/A"
         print("{:<2}. {:<45} {:<10} {:<8}".format(idx, title[:45], year, rating))
 
     # Opción para ver detalles de una película específica
@@ -49,7 +49,7 @@ def read_movies(collection):
         if opcion.isdigit():
             opcion = int(opcion)
             if 1 <= opcion <= len(results):
-                detalle = collection.find_one({"_id": results[opcion - 1]["_id"]})
+                detalle = collection.find_one({"_id": results[opcion - 1]["_id"]}) #metodo find_one busca un documento específico por su ID, opcion - 1 para ajustar al índice de la lista
                 print("\n--- Detalles de la Película ---")
                 print(f"Título: {detalle['title']}")
                 print(f"Año: {detalle['releaseYear']}")
@@ -117,7 +117,7 @@ def update_movie(collection):
         return
 
     # Realiza la actualización
-    collection.update_one({"_id": movie["_id"]}, {"$set": {campo: nuevo_valor}}) #método update_one actualiza un documento específico
+    collection.update_one({"_id": movie["_id"]}, {"$set": {campo: nuevo_valor}}) #método update_one actualiza un documento específico, $set establece el nuevo valor del campo
     print("Película actualizada correctamente.")
 
 # Elimina una película después de mostrar listado, confirmar selección y confirmar borrado
@@ -140,7 +140,7 @@ def delete_movie(collection):
         print("Selección inválida.")
         return
 
-    seleccionada = collection.find_one({"_id": movies[int(opcion)-1]['_id']})
+    seleccionada = collection.find_one({"_id": movies[int(opcion)-1]['_id']}) #metodo find_one busca la película seleccionada por su ID
 
     # Muestra detalles antes de confirmar eliminación
     print("\nPelícula seleccionada:")
