@@ -1,6 +1,7 @@
 # crud.py
 from models import input_movie_data
 from bson.objectid import ObjectId
+import re # Importa la librería para trabajar con expresiones regulares
 
 # Crea una nueva película solicitando los datos al usuario y guardándola en MongoDB
 
@@ -15,12 +16,18 @@ def read_movies(collection):
     print("\n--- Lista de Películas ---")
     filtro = input("¿Desea aplicar un filtro por título? (s/n): ").lower()
     query = {}
+
     if filtro == 's':
-        title = input("Título exacto: ")
-        query = {"title": title}
+        title_input = input("Ingrese parte del título: ").strip()
+        if title_input:
+            # Escapar caracteres especiales para una búsqueda segura
+            regex_safe = re.escape(title_input)
+            query = {"title": {"$regex": regex_safe, "$options": "i"}}
+        else:
+            print("Entrada vacía, mostrando todas las películas.")
 
     projection = {"title": 1, "releaseYear": 1, "rating.average": 1}
-    results = list(collection.find(query, projection))  # método find devuelve un cursor; lo convertimos a lista
+    results = list(collection.find(query, projection))
 
     if not results:
         print("No se encontraron películas.")
@@ -30,9 +37,9 @@ def read_movies(collection):
     print("\n{:<50} {:<10} {:<8}".format("Título", "Año", "Rating"))
     print("-" * 70)
     for idx, movie in enumerate(results, 1):
-        title = movie.get("title", "N/A") # metodo get devuelve el valor de la clave si existe, o "N/A" si no
-        year = movie.get("releaseYear", "N/A") # método get devuelve el año de lanzamiento o "N/A" si no existe
-        rating = movie.get("rating", {}).get("average", "N/A") # método get devuelve la nota promedio o "N/A" si no existe
+        title = movie.get("title", "N/A")
+        year = movie.get("releaseYear", "N/A")
+        rating = movie.get("rating", {}).get("average", "N/A")
         print("{:<2}. {:<45} {:<10} {:<8}".format(idx, title[:45], year, rating))
 
     # Opción para ver detalles de una película específica
@@ -42,7 +49,7 @@ def read_movies(collection):
         if opcion.isdigit():
             opcion = int(opcion)
             if 1 <= opcion <= len(results):
-                detalle = collection.find_one({"_id": results[opcion - 1]["_id"]}) # método find_one busca un documento por su ID
+                detalle = collection.find_one({"_id": results[opcion - 1]["_id"]})
                 print("\n--- Detalles de la Película ---")
                 print(f"Título: {detalle['title']}")
                 print(f"Año: {detalle['releaseYear']}")
