@@ -11,7 +11,6 @@ def menu():
     print("4. Eliminar película")
     print("5. Salir")
 
-
 def main():
     db = connect_db()
     collection = db["movies"] # llamada a la colección de películas
